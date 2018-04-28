@@ -22,9 +22,9 @@
             <ul id="sidebarnav">
                 <li class="nav-devider"></li>
                 <li [class.active]="showMenu === 'starter'">
-                    <a routerLink="/starter" (click)="addExpandClass('starter')" [routerLinkActive]="['router-link-active']"><i class="mdi mdi-file"></i><span class="hide-menu">Starter Page</span></a>
+                    <a routerLink="/starter" (click)="addExpandClass('starter')" [routerLinkActive]="['router-link-active']"><i class="mdi mdi-file"></i><span class="hide-menu">Mapping Page</span></a>
                 </li>                
-                <li class="nav-small-cap">UI Components</li>
+                <li class="nav-small-cap">Actions</li>
                 <li [class.active]="showMenu === 'component'">
                     <a class="has-arrow" href="javascript:void(0)" (click)="addExpandClass('component')" aria-expanded="false"><i class="mdi mdi-bullseye"></i><span class="hide-menu">Components</span></a>
                     <ul aria-expanded="false" class="collapse" [class.in]="showMenu === 'component'">
