@@ -1,2 +1,0 @@
-1. run 'npm install' in directory CLI
-2. run 'npm run start' 
