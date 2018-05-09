@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head lang="en">
+	<meta charset="UTF-8">
+ 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>GreenBox</title>
+	<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<script type="text/javascript" src="node_modules/angular/angular.min.js"></script>
+	<script type="text/javascript" src="node_modules/angular-route/angular-route.min.js"></script>
+	<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAb9tv9AJZCM6mXFV6Zv497bue3mCuhJGw" async defer></script>
+</head>
+<body style="background-color:#bfbfbf; ">
+	<div class="wrapper">
+	<!--	<a href="#login" class="button">Login</a>
+		<a href="#registration" class="button">Registration</a>
+      	<a href="#mapping" class="button">Mapping</a> -->
+		<div class="content" ng-view>
+			
+		</div>
+	</div>
+	<script type="text/javascript" src="src/script/app-concat.js"></script>
+</body>
+</html>

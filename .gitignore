@@ -1,5 +1,2 @@
-node_modules/
-bower_components/
-.tmp/
-gen/
-docs/
+/bower_components
+/node_modules
