@@ -116,33 +116,32 @@ body header h1{
 }
 </style>
 
-
-<header class="main-header">
-    <h1>GreenBox</h1>
-    <small>Your Personal Garbage Watch Assistant</small>
-</header>
-<div class="login-form">
-    <form action="#" method="POST">
+<div ng-controller="LoginController">
+    <header class="main-header">
+        <h1>GreenBox</h1>
+        <small>Your Personal Garbage Watch Assistant</small>
+    </header>
+    <div class="login-form">
         <div class="input-text">
-            <span class="fa fa-envelope-o"></span>
-            <input type="email" name="email" id="login-email" placeholder="Email">
+           <span class="fa fa-envelope-o"></span>
+            <input type="text" name="email" id="login-email" placeholder="Email" ng-model="user.username">
         </div>
         <div class="input-text">
             <span class="fa fa-lock" ></span>
-            <input type="password" name="password" id="login-password" placeholder="Password">
+            <input type="password" name="password" id="login-password" placeholder="Password" ng-model="user.password">
         </div>
-        <input type="submit" name="login" id="login-submit" value="Log in">
-    </form>
-    <div class="other-actions">
-        <a href="/#signup"><input type="button" name="signup" id="signup-button" value="Sign up"></a>
-        <a href="#">Forgot Password?</a>
+        <input type="submit" name="login" id="login-submit" value="Log in" ng-click="validateUser(user)">
+        <div class="other-actions">
+            <a href="/#signup"><input type="button" name="signup" id="signup-button" value="Sign up"></a>
+            <a href="#">Forgot Password?</a>
+        </div>
     </div>
-</div>
-<div class="login-social-media">
-    <p>Log in with</p>
-    <div class="social-media-icons">
-        <a href=""><span class="fa fa-facebook"></span></a>
-        <a href=""><span class="fa fa-google"></span></a>
-        <a href=""><span class="fa fa-yahoo"></span></a>
+    <div class="login-social-media">
+        <p>Log in with</p>
+        <div class="social-media-icons">
+            <a href=""><span class="fa fa-facebook"></span></a>
+            <a href=""><span class="fa fa-google"></span></a>
+            <a href=""><span class="fa fa-yahoo"></span></a>
+        </div>
     </div>
 </div>

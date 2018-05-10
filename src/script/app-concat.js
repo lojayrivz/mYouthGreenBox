@@ -1,35 +1,12 @@
+var app = angular.module("app",["ngRoute","ngCookies","ngMaterial"]);
 
-(function(){
-	'use strict';
-	angular
-		.module('app',[])
-		.constant(
-			'DIR_PATH', {
-			MAPPING: 'src/components/mapping/mapping.html',
-			LOGIN: 'src/components/login/login.html'
-		});
-})();
+app.constant('DIR_PATH',{
+	MAPPING: 'src/components/mapping/mapping.html',
+	LOGIN: 'src/components/login/login.html'
+});
 
-
-
-(function(){
-	'use strict';
-	angular
-		.module('app',['ngRoute']);
-})();
-
-
-
-(function(){
-	'use strict';
-	angular
-		.module('app')
-		.config(RoutesConfig);
-		
-	RoutesConfig.$inject  = ['$routeProvider', '$locationProvider'];
-
-	function RoutesConfig($routeProvider, $locationProvider){
-		$locationProvider.hashPrefix('');
+app.config(function($routeProvider,$locationProvider){
+	$locationProvider.hashPrefix('');
 		$routeProvider
 			.when("/mapping",{
 				templateUrl: 'src/components/mapping/mapping.html',
@@ -52,37 +29,57 @@
                 controllerAs: "SignUpVM"
 			})
 			.otherwise({ redirectTo: '/login' });
-	}	
-		
+});
 
-})();
+app.factory('LoginFactory',function($http){
+	var factory = {};
+		factory.validateUser = function($scope){
+			return $http({
+				method: 'POST',
+				data: {
+					'username': $scope.username,
+					'password': $scope.password
+				},
+				url: 'api/user/validate.php'
+			});
+		}
+		return factory;
+});
 
-
-
-
-(function(){
-	angular
-		.module('app')
-		.controller('LoginController',LoginController);
-	
-	function LoginController(){
-		var LoginVM = this;
-
-
+app.controller('LoginController',function($scope,$cookies,$location,LoginFactory){
+	$scope.validateUser = function(user){
+			if(user!=null){
+				$scope.username = user.username;
+				$scope.password = user.password;
+			}else{
+				$scope.username = "";
+				$scope.password = "";
+			}
+			LoginFactory.validateUser($scope).then(function successCallback(response){
+				if(response.data.message=="Successfully logged in."){
+					$location.path("/mapping");
+				}else{
+					$scope.username = "";
+					$scope.password = "";
+				}
+				$cookies.put("email",$scope.username);
+				$cookies.put("password",$scope.password);
+				console.log(response.data.message);
+			},function errorCallback(response){
+				console.log(response);
+			});
 	}
-})();
+});
 
+app.factory("MappingFactory",function($http){
 
+});
 
-(function(){
-	'use strict';
-	angular
-		.module('app')
-		.controller('MappingController',MappingController);
+app.controller('MappingController',function($scope,$cookies,$location){
+		if($cookies.get('email').length<=0){
+			$location.path('/login');
+		}
 
-	MappingController.$inject = ['$scope'];
-
-	function MappingController($scope){
 		var MapVM = this;
 		
 		MapVM.infoWindow  = new google.maps.InfoWindow;
@@ -145,31 +142,12 @@
 				infowindow.open(MapVM.map,marker);
 			});
       	}
+});
 
+app.controller("RegistrationController",function(){
+	var RegisterVM = this;
+});
 
-	}
-})();
-
-
-(function(){
-	'use strict';
-	angular
-		.module('app')
-		.controller("RegistrationController",RegistrationController);
-
-	function RegistrationController (){
-		var RegisterVM = this;
-	}
-
-})();
-(function(){
-	'use strict';
-	angular
-		.module('app')
-		.controller("SignUpController",SignUpController);
-
-	function SignUpController (){
-		var SignUpVM = this;
-	}
-
-})();
+app.controller("SignUpController",function(){
+	var SignUpVM = this;
+});
