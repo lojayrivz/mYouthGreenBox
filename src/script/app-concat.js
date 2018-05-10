@@ -46,7 +46,12 @@
                 controller: "RegistrationController",
                 controllerAs: "RegisterVM"
 			})
-			.otherwise({ template: "<h1>Sample Otherwise</h1>" });
+			.when("/signup",{
+				templateUrl: 'src/components/signup/signup.html',
+				controller: "SignUpController",
+                controllerAs: "SignUpVM"
+			})
+			.otherwise({ redirectTo: '/login' });
 	}	
 		
 
@@ -85,10 +90,9 @@
 		MapVM.errorStatus = false;
 		MapVM.position 	  = {lat: null,lng: null};
   		MapVM.map;
-
+  		MapVM.recentPoint = {lat:null,lng:null};
 
 		MapVM.initMap = function () {
-
 	       	if(navigator.geolocation){
 	       		navigator.geolocation.getCurrentPosition(currentPosition,currentPositionHandleError);
 	       	}
@@ -122,7 +126,10 @@
       	MapVM.addMarker   = function(event){
       		var Latitude  = event.latLng.lat();
 			var Longitude = event.latLng.lng();
+			MapVM.recentPoint.lng = Longitude;
+			MapVM.recentPoint.lat = Latitude;
 			successMarker(Latitude,Longitude,'Success');
+			console.log(MapVM.recentPoint);
       	}
 
       	var successMarker = function(Latitude,Longitude,contentString){
@@ -154,4 +161,15 @@
 		var RegisterVM = this;
 	}
 
-})
+})();
+(function(){
+	'use strict';
+	angular
+		.module('app')
+		.controller("SignUpController",SignUpController);
+
+	function SignUpController (){
+		var SignUpVM = this;
+	}
+
+})();

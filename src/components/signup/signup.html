@@ -1,0 +1,82 @@
+<style type="text/css">
+body{
+    position: relative;
+    margin: 0;
+    padding: 0;
+    border: none;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.signup-welcome .main-header{
+    position: relative;
+    padding-top: 10vh;
+    padding-bottom: 3vh;
+    padding-left: 6vw;
+    background-color: #bbbbbb;
+}
+
+.signup-welcome .main-header img{
+    margin: 0;
+    padding: 0;
+    width: 60px;
+    height: auto;
+}
+
+.signup-welcome h3{
+    padding: 0;
+    margin-top: 4vh;
+    margin-left: 6vw;
+    margin-bottom: 1vh;
+    font-size: 13pt;
+}
+
+.signup-form{
+    margin-left: 10vw;
+    margin-right: 10vw;
+    border: none;
+    padding: none;
+}
+
+.signup-form form .text-box{
+    padding-top: 10pt;
+    border: none;
+    border-bottom: solid 1pt lightgray;
+    width: 100%;
+    font-size: 12pt;
+}
+
+.signup-form form p{
+    padding-top: 5pt;
+    font-size: 9pt;
+    margin-bottom: 5pt;
+    margin-top: 25pt;
+}
+
+.signup-form form input[type="submit"]{
+    width: 100%;
+    padding-top: 5pt;
+    padding-bottom: 5pt;
+    background: #bbbbbb;
+}
+</style>
+
+
+
+<div class="signup-welcome">
+    <header class="main-header">
+        <img src="../../../images/GreenBox Logo.png" alt="GreenBox Logo">
+    </header>
+    <h3 class="welcome-message">Welcome to GreenBox</h3>
+</div>
+<div class="signup-form">
+    <form action="#" method="post">
+        <input class="text-box" type="text" name="full-name" id="signup-name" placeholder="Full Name">
+        <input class="text-box" type="email" name="email" id="signup-email" placeholder="Email Address">
+        <input class="text-box" type="password" name="password" id="signup-password" placeholder="Password">
+        <input class="text-box" type="password" name="confirm-password" id="signup-confirm-password" placeholder="Confirm Password">
+        <p id="signup-terms-agreement">
+            By clicking Sign up, you agree to our terms and conditions.
+        </p>
+        <input type="submit" name="signup" id="signup-submit" value="Sign Up">
+    </form>
+</div>

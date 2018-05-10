@@ -25,7 +25,12 @@
                 controller: "RegistrationController",
                 controllerAs: "RegisterVM"
 			})
-			.otherwise({ template: "<h1>Sample Otherwise</h1>" });
+			.when("/signup",{
+				templateUrl: 'src/components/signup/signup.html',
+				controller: "SignUpController",
+                controllerAs: "SignUpVM"
+			})
+			.otherwise({ redirectTo: '/login' });
 	}	
 		
 
