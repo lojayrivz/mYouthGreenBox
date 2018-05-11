@@ -31,11 +31,6 @@ app.config(function($routeProvider,$locationProvider){
 				controller: "SignUpController",
                 controllerAs: "SignUpVM"
 			})
-			.when("/forgotpassword",{
-				templateUrl: 'src/components/forgotPassword/forgotPassword.html',
-				controller: "ForgotPasswordController",
-				controllerAs: "ForgotPassVM"
-			})
 			.otherwise({ redirectTo: '/login' });
 });
 
@@ -54,14 +49,30 @@ app.factory('LoginFactory',function($http){
 		}
 		return factory;
 });
-app.factory("MappingFactory",function($http){
+app.factory('MappingFactory',function($http){
+	var factory = {};
+	factory.registerBin = function($scope){
+		return $http({
+			method: 'POST',
+			data: {
+				'userid': $scope.ownerid,
+				'latitude': $scope.latitude,
+				'longitude': $scope.longitude
+			},
+			url: 'api/garbages/register.php',
+		});
+	};
 
+	factory.viewAllBins = function(){
+        return $http({
+            method: 'GET',
+            url: 'api/garbages/read.php'
+        });		
+	}
+
+	return factory;
 });
 
-
-app.controller("ForgotPasswordController",function(){
-	var ForgotPassVM = this;
-});
 
 
 app.controller('LoginController',function($scope,$cookies,$location,LoginFactory){
@@ -92,7 +103,11 @@ app.controller('LoginController',function($scope,$cookies,$location,LoginFactory
 
 
 
-app.controller('MappingController',function($scope,$cookies,$location){
+app.controller('MappingController',function($scope,$mdDialog,$mdToast,$cookies,$location,MappingFactory){
+		$scope.latitude = "";
+		$scope.longitude = "";
+		$scope.ownerid = $cookies.get("email");
+
 		if($cookies.get('email').length<=0){
 			$location.path('/login');
 		}
@@ -142,6 +157,8 @@ app.controller('MappingController',function($scope,$cookies,$location){
 			var Longitude = event.latLng.lng();
 			MapVM.recentPoint.lng = Longitude;
 			MapVM.recentPoint.lat = Latitude;
+			$scope.latitude = Latitude;
+			$scope.longitude = Longitude;
 			successMarker(Latitude,Longitude,'Success');
 			console.log(MapVM.recentPoint);
       	}
@@ -159,6 +176,69 @@ app.controller('MappingController',function($scope,$cookies,$location){
 				infowindow.open(MapVM.map,marker);
 			});
       	}
+
+      	var loadMarker = function(latitude,longitude){
+      		var marker = new google.maps.Marker({
+				position:new google.maps.LatLng(latitude,longitude),
+				map:MapVM.map,
+				icon: 'images/ic-butt/binicon.ico'
+			}); 
+			var infowindow = new google.maps.InfoWindow({
+				// content:contentString
+			});
+			marker.addListener('click', function() {
+				infowindow.open(MapVM.map,marker);
+			});	
+      	}
+
+      	$scope.registerBinForm = function(event){
+      		$mdDialog.show({
+      			controller: registerBinController,
+      			templateUrl: 'src/components/mapping/register.template.html',
+      			parent: angular.element(document.body),
+      			clickOutsideToClose: true,
+      			scope: $scope,
+      			preserveScope: true,
+      			fullscreen: true
+      		});
+      	}
+
+      	$scope.registerBin = function(){
+			MappingFactory.registerBin($scope).then(function successCallback(response){
+				// console.log(response);
+				$scope.showToast(response.data.message);
+				// $scope.cancel();
+			},function errorCallback(response){
+				// console.log(response);
+				$scope.showToast(response.data.message);
+			});    		
+      	}
+
+      	$scope.viewAllBins = function(){
+      		MappingFactory.viewAllBins().then(function successCallback(response){
+      			$scope.garbages = response.data.records;
+      			$.each($scope.garbages,function(i,garbage){
+      				loadMarker(garbage.latitude,garbage.longitude);
+      			});
+      		},function errorCallback(response){
+ 				$scope.showToast("Unable to load bins");
+      		});
+      	}
+
+      	$scope.showToast = function(message){
+      		$mdToast.show(
+      			$mdToast.simple()
+      				.textContent(message)
+      				.hideDelay(3000)
+      				.position("top right")
+      		);
+      	}
+
+		function registerBinController($scope,$mdDialog){
+			$scope.cancel = function(){
+				$mdDialog.cancel();
+			}
+		}      	
 });
 
 

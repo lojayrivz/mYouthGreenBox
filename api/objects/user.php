@@ -46,4 +46,20 @@
 			else return false;
 		}
 
+		//function retrieve user ID
+
+		function getUserID(){
+			$query = "SELECT u.user_id FROM ".$this->table_name." u WHERE u.username = ? LIMIT 0,1";
+
+			$stmt = $this->conn->prepare($query);
+
+			$stmt->bindParam(1,$this->username);
+
+			$stmt->execute();
+
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+			return $row['user_id'];
+		}
+
 	}

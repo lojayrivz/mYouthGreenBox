@@ -3,9 +3,7 @@
 		private $conn;
 		private $table_name = "garbages";
 
-		public $garbage_id;
-		public $user_id;
-		public $garbage_location;
+		public $userid;
 		public $latitude;
 		public $longitude;
 
@@ -13,27 +11,21 @@
 			$this->conn = $db;
 		}
 
-		//create user
+		//create garbage
 
-		function create(){
-			$query = "INSERT INTO ".$this->table_name." SET user_id=:userid, garbage_location=:location,latitude=:latitude,longitude=:longitude";
+	function create(){
+		$query = "INSERT INTO ".$this->table_name."(user_id,latitude,longitude) VALUES (?,?,?)";
 
-			$stmt = $this->conn->prepare($query);
+		$stmt = $this->conn->prepare($query);
 
-			$this->user_id = htmlspecialchars(strip_tags($this->user_id));
-			$this->garbage_location = htmlspecialchars(strip_tags($this->garbage_location));
-			$this->longitude = htmlspecialchars(strip_tags($this->longitude));
-			$this->latitude = htmlspecialchars(strip_tags($this->latitude));
+		$stmt->bindParam('1',$this->user_id);
+		$stmt->bindParam('2',$this->latitude);
+		$stmt->bindParam('3',$this->longitude);
 
-			$stmt->bindParam("userid",$this->user_id);
-			$stmt->bindParam("location",$this->garbage_location);
-			$stmt->bindParam("latitude",$this->latitude);
-			$stmt->bindParam("longitude",$this->longitude);
-
-			if($stmt->execute()){
-				return true;
-			}else return false;
-		}
+		if($stmt->execute()){
+			return true;
+		}else return false;
+	}
 
 		//retrieve information from location
 
@@ -50,4 +42,19 @@
 			$row = $stmt->fetch(PDO::FETCH_ASSOC);
 			return $row;
 		}
+	
+	function read(){
+
+	    // select all query
+	    $query = "SELECT * FROM " . $this->table_name;
+	 
+	    // prepare query statement
+	    $stmt = $this->conn->prepare($query);
+	 
+	    // execute query
+	    $stmt->execute();
+	 
+	    return $stmt;
 	}
+}
+

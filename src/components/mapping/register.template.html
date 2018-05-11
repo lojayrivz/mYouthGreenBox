@@ -1,0 +1,36 @@
+<md-dialog>
+    <form ng-cloak>
+         
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Register Bin</h2>
+            </div>
+        </md-toolbar>
+ 
+        <md-dialog-content>
+            <div class="md-dialog-content">
+ 
+                <md-input-container class="md-block">
+                    <label>Owner's ID: </label>
+                    <input disabled="true" ng-model="ownerid">
+                </md-input-container>
+ 
+                <md-input-container class="md-block">
+                    <label>Latitude</label>
+                    <input disabled="true" ng-model="latitude">
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>Longitude</label>
+                    <input disabled="true" ng-model="longitude">
+                </md-input-container>
+ 
+            </div>
+        </md-dialog-content>
+ 
+        <md-dialog-actions layout="row">
+            <md-button ng-click="cancel()">Cancel</md-button>
+            <md-button ng-click="registerBin()" class="md-primary">Register</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

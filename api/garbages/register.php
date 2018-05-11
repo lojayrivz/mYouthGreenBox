@@ -12,32 +12,34 @@ include_once '../config/database.php';
  
 // instantiate product object
 include_once '../objects/garbage.php';
- 
+include_once '../objects/user.php';
+
+
 $database = new Database();
 $db = $database->getConnection();
  
 $garbage = new Garbage($db);
- 
+$user = new User($db);
+
 // get posted data
 $data = json_decode(file_get_contents("php://input"));
  
 // set product property values
-$garbage->user_id = $data->user_id;
-$garbage->garbage_location = $data->garbage_location;
+$user->username = $data->userid;
+$garbage->user_id = $user->getUserID();
 $garbage->longitude = $data->longitude;
 $garbage->latitude = $data->latitude;
- 
-// create the product
-if($garbage->create()){
+
+$result = $garbage->create();
+
+if($result){
     echo '{';
         echo '"message": "Garbage bin was successfully registered."';
     echo '}';
-}
- 
-// if unable to create the product, tell the user
-else{
+}else{ 
     echo '{';
         echo '"message": "Unable to register garbage bin."';
     echo '}';
 }
+
 ?>

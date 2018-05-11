@@ -22,10 +22,5 @@ app.config(function($routeProvider,$locationProvider){
 				controller: "SignUpController",
                 controllerAs: "SignUpVM"
 			})
-			.when("/forgotpassword",{
-				templateUrl: 'src/components/forgotPassword/forgotPassword.html',
-				controller: "ForgotPasswordController",
-				controllerAs: "ForgotPassVM"
-			})
 			.otherwise({ redirectTo: '/login' });
 });
