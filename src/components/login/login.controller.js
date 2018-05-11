@@ -1,6 +1,10 @@
 
 app.controller('LoginController',function($scope,$cookies,$location,LoginFactory){
+	$scope.LoginProgress    = false;
+	$scope.responseStatus   = true;
+	$scope.dataResponse     = '';
 	$scope.validateUser = function(user){
+			$scope.LoginProgress = true;
 			if(user!=null){
 				$scope.username = user.username;
 				$scope.password = user.password;
@@ -17,9 +21,11 @@ app.controller('LoginController',function($scope,$cookies,$location,LoginFactory
 				}
 				$cookies.put("email",$scope.username);
 				$cookies.put("password",$scope.password);
-				console.log(response.data.message);
+				$scope.LoginProgress    = false;
+				$scope.dataResponse     = response.data.message;
 			},function errorCallback(response){
-				console.log(response);
+				$scope.LoginProgress    = false;
+				//console.log(response);
 			});
 	}
 });

@@ -16,7 +16,8 @@ app.controller('MappingController',function($scope,$mdDialog,$mdToast,$cookies,$
 		MapVM.position 	  = {lat: null,lng: null};
   		MapVM.map;
   		MapVM.recentPoint = {lat:null,lng:null};
-
+  		MapVM.marker;
+  		MapVM.markerCount = 0;
 		MapVM.initMap = function () {
 	       	if(navigator.geolocation){
 	       		navigator.geolocation.getCurrentPosition(currentPosition,currentPositionHandleError);
@@ -55,22 +56,28 @@ app.controller('MappingController',function($scope,$mdDialog,$mdToast,$cookies,$
 			MapVM.recentPoint.lat = Latitude;
 			$scope.latitude = Latitude;
 			$scope.longitude = Longitude;
-			successMarker(Latitude,Longitude,'Success');
+			if(MapVM.markerCount!=0){
+				MapVM.marker.setMap(null);
+				MapVM.markerCount = 0;
+			}
+			successMarker(Latitude,Longitude);
 			console.log(MapVM.recentPoint);
       	}
 
-      	var successMarker = function(Latitude,Longitude,contentString){
-      		var marker = new google.maps.Marker({
+      	var successMarker = function(Latitude,Longitude){
+      		MapVM.marker = new google.maps.Marker({
 				position:new google.maps.LatLng(Latitude,Longitude),
 				map:MapVM.map,
 				icon: 'images/ic-butt/binicon.ico'
-			}); 
+			});
+			MapVM.markerCount++; 
+			/*
 			var infowindow = new google.maps.InfoWindow({
 				content:contentString
-			});
+			}); 
 			marker.addListener('click', function() {
-				infowindow.open(MapVM.map,marker);
-			});
+				infowindow.open(MapVM.map,MapVM.marker);
+			}); */
       	}
 
       	var loadMarker = function(latitude,longitude){

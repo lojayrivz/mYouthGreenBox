@@ -1,36 +1,82 @@
-<md-dialog>
-    <form ng-cloak>
-         
-        <md-toolbar>
-            <div class="md-toolbar-tools">
-                <h2>Register Bin</h2>
-            </div>
-        </md-toolbar>
- 
-        <md-dialog-content>
-            <div class="md-dialog-content">
- 
-                <md-input-container class="md-block">
-                    <label>Owner's ID: </label>
-                    <input disabled="true" ng-model="ownerid">
-                </md-input-container>
- 
-                <md-input-container class="md-block">
-                    <label>Latitude</label>
-                    <input disabled="true" ng-model="latitude">
-                </md-input-container>
+<style>
+     body {
+        font-family: 'Open Sans';
+        text-align: center;
+        background:#FAFAFA;
+    }
 
-                <md-input-container class="md-block">
-                    <label>Longitude</label>
-                    <input disabled="true" ng-model="longitude">
-                </md-input-container>
- 
+    .container {
+        display: block;
+        text-align: center;
+        width: 100%;
+        top: 0;
+        left: 0;
+        height: 100%;
+        padding: 5vw;
+        font-size: 14px;
+        text-align: center;
+        position: relative;
+    }
+
+    .name{
+        font-family: 'Roboto', sans-serif;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .btn{
+        width:100%;
+    }
+
+    .title{
+        font-family: 'Roboto', sans-serif;
+        text-align: left;
+        font-size: 16px;
+    }
+
+    .material-icons.md-72 {
+        font-size: 72px;
+        color: gray;
+    }
+
+    </style>
+
+<div class="container col s8">
+    <form class="col s14">
+      <div class="row">
+        <div class="col s6">
+            <i class="material-icons md-72">add_a_photo</i>
+        </div>
+        <div class="col s6">
+
+            <p class="name">'Residence' Bin 0001</p>   
+            <select>
+                <option value="found" disabled selected>Select Relation</option>
+                <option value="found">I found this</option>
+                <option value="own">I own this</option>
+            </select>
+        </div>
+
+        <p class="title">Add a Notice</p>
+        <div class="row">
+            <div class="input-field">
+                <i class="material-icons prefix">mode_edit</i>
+                <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
+                <label style="font-size:24px;" for="icon_prefix2">Information</label>
             </div>
-        </md-dialog-content>
- 
-        <md-dialog-actions layout="row">
-            <md-button ng-click="cancel()">Cancel</md-button>
-            <md-button ng-click="registerBin()" class="md-primary">Register</md-button>
-        </md-dialog-actions>
+        </div>
+        <div class="row">
+            Owner: {{ownerid}}
+            <br>
+            Latitude: {{MapVM.recentPoint.lat}}
+            <br>
+            Longitude: {{MapVM.recentPoint.lng}}
+        </div>
+
+        <div class="waves-effect waves-light btn" ng-click="registerBin()" >Register</div>
+        <br><br>
+        <div  class="waves-effect waves-light btn" ng-click="cancel()" >Cancel</div>
+  
+        </div>
     </form>
-</md-dialog>
+</div>
