@@ -1,11 +1,11 @@
 
+var app = angular.module("app",["ngRoute","ngCookies","ngMaterial"]);
+
+
 app.constant('DIR_PATH',{
 	MAPPING: 'src/components/mapping/mapping.html',
 	LOGIN: 'src/components/login/login.html'
 });
-
-
-var app = angular.module("app",["ngRoute","ngCookies","ngMaterial"]);
 
 
 app.config(function($routeProvider,$locationProvider){
