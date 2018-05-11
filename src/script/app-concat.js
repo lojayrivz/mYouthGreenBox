@@ -75,6 +75,12 @@ app.factory('MappingFactory',function($http){
 
 
 
+
+app.controller("ForgotPasswordController",function(){
+	var ForgotPassVM = this;
+});
+
+
 app.controller('LoginController',function($scope,$cookies,$location,LoginFactory){
 	$scope.validateUser = function(user){
 			if(user!=null){
@@ -216,6 +222,7 @@ app.controller('MappingController',function($scope,$mdDialog,$mdToast,$cookies,$
 
       	$scope.viewAllBins = function(){
       		MappingFactory.viewAllBins().then(function successCallback(response){
+      			console.log('hey');
       			$scope.garbages = response.data.records;
       			$.each($scope.garbages,function(i,garbage){
       				loadMarker(garbage.latitude,garbage.longitude);
