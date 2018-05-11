@@ -31,6 +31,11 @@ app.config(function($routeProvider,$locationProvider){
 				controller: "SignUpController",
                 controllerAs: "SignUpVM"
 			})
+			.when("/forgotpassword",{
+				templateUrl: 'src/components/forgotPassword/forgotPassword.html',
+				controller: "ForgotPasswordController",
+				controllerAs: "ForgotPassVM"
+			})
 			.otherwise({ redirectTo: '/login' });
 });
 
@@ -52,6 +57,12 @@ app.factory('LoginFactory',function($http){
 app.factory("MappingFactory",function($http){
 
 });
+
+
+app.controller("ForgotPasswordController",function(){
+	var ForgotPassVM = this;
+});
+
 
 app.controller('LoginController',function($scope,$cookies,$location,LoginFactory){
 	$scope.validateUser = function(user){
