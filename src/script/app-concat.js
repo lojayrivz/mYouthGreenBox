@@ -1,9 +1,12 @@
-var app = angular.module("app",["ngRoute","ngCookies","ngMaterial"]);
 
 app.constant('DIR_PATH',{
 	MAPPING: 'src/components/mapping/mapping.html',
 	LOGIN: 'src/components/login/login.html'
 });
+
+
+var app = angular.module("app",["ngRoute","ngCookies","ngMaterial"]);
+
 
 app.config(function($routeProvider,$locationProvider){
 	$locationProvider.hashPrefix('');
@@ -31,6 +34,7 @@ app.config(function($routeProvider,$locationProvider){
 			.otherwise({ redirectTo: '/login' });
 });
 
+
 app.factory('LoginFactory',function($http){
 	var factory = {};
 		factory.validateUser = function($scope){
@@ -44,6 +48,9 @@ app.factory('LoginFactory',function($http){
 			});
 		}
 		return factory;
+});
+app.factory("MappingFactory",function($http){
+
 });
 
 app.controller('LoginController',function($scope,$cookies,$location,LoginFactory){
@@ -71,9 +78,8 @@ app.controller('LoginController',function($scope,$cookies,$location,LoginFactory
 	}
 });
 
-app.factory("MappingFactory",function($http){
 
-});
+
 
 app.controller('MappingController',function($scope,$cookies,$location){
 		if($cookies.get('email').length<=0){
@@ -144,10 +150,16 @@ app.controller('MappingController',function($scope,$cookies,$location){
       	}
 });
 
+
+
 app.controller("RegistrationController",function(){
 	var RegisterVM = this;
 });
 
+
+
 app.controller("SignUpController",function(){
 	var SignUpVM = this;
 });
+
+

@@ -1,13 +1,9 @@
 
-(function(){
-	'use strict';
-	angular
-		.module('app')
-		.controller('MappingController',MappingController);
+app.controller('MappingController',function($scope,$cookies,$location){
+		if($cookies.get('email').length<=0){
+			$location.path('/login');
+		}
 
-	MappingController.$inject = ['$scope'];
-
-	function MappingController($scope){
 		var MapVM = this;
 		
 		MapVM.infoWindow  = new google.maps.InfoWindow;
@@ -70,8 +66,5 @@
 				infowindow.open(MapVM.map,marker);
 			});
       	}
-
-
-	}
-})();
+});
 

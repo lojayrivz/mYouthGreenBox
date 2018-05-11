@@ -1,12 +1,5 @@
 
-(function(){
-	'use strict';
-	angular
-		.module('app',[])
-		.constant(
-			'DIR_PATH', {
-			MAPPING: 'src/components/mapping/mapping.html',
-			LOGIN: 'src/components/login/login.html'
-		});
-})();
-
+app.constant('DIR_PATH',{
+	MAPPING: 'src/components/mapping/mapping.html',
+	LOGIN: 'src/components/login/login.html'
+});

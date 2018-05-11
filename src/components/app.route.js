@@ -1,14 +1,6 @@
 
-(function(){
-	'use strict';
-	angular
-		.module('app')
-		.config(RoutesConfig);
-		
-	RoutesConfig.$inject  = ['$routeProvider', '$locationProvider'];
-
-	function RoutesConfig($routeProvider, $locationProvider){
-		$locationProvider.hashPrefix('');
+app.config(function($routeProvider,$locationProvider){
+	$locationProvider.hashPrefix('');
 		$routeProvider
 			.when("/mapping",{
 				templateUrl: 'src/components/mapping/mapping.html',
@@ -31,8 +23,4 @@
                 controllerAs: "SignUpVM"
 			})
 			.otherwise({ redirectTo: '/login' });
-	}	
-		
-
-})();
-
+});

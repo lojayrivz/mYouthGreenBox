@@ -1,11 +1,5 @@
-(function(){
-	'use strict';
-	angular
-		.module('app')
-		.controller("RegistrationController",RegistrationController);
 
-	function RegistrationController (){
-		var RegisterVM = this;
-	}
+app.controller("RegistrationController",function(){
+	var RegisterVM = this;
+});
 
-})();
