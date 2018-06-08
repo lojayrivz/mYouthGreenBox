@@ -1,0 +1,47 @@
+<style type="text/css">
+	*{
+		padding: 0;
+		margin: 0;
+	}
+
+	#mappingWrapper{
+		position: fixed;
+		height:100%;
+		width:100%;
+		overflow-y: scroll;
+		overflow-x: hidden;
+		background-color:#2b8353;
+	}
+
+
+	#suggest_button,#nearby_button,#register_button{
+		width:100%;
+		height: 90px;
+		cursor: pointer;
+	}
+
+	#map{
+		height:520px;
+		background-color: #fff;
+	}
+	#errorDisplay,#mappingSpinner{
+		position: relative;
+		top: 40%;
+		left: 45%;
+	}
+</style>
+
+
+<div id="mappingWrapper" ng-init=MapVM.initMap()>
+	<div class="row">
+		<div id="map" class="col-md-10 col-sm-10 col-sm-offset-1 col-xs-12">
+			<span ng-if="MapVM.inProgress" id="mappingSpinner"><i class="fa fa-spinner fa-spin" style="font-size:54px;"></i><br>In Progress..<br><a href="/">Refresh</a></span>
+			<span style="font-size:14px;" ng-if="MapVM.errorStatus" id="errorDisplay">An error has occured<br> <a href="/">Refresh</a></span>
+		</div>
+	</div>
+	<div class="row" style="margin-top:20px;">
+		<div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-1 col-xs-3 col-xs-offset-1"><img id="register_button" src="images/ic-butt/Register_Button.png"></div>
+		<div class="col-md-2 col-md-offset-2 col-sm-2 col-sm-offset-2 col-xs-3 col-xs-offset-1"><img id="nearby_button" src="images/ic-butt/Find_Button.png"></div>
+		<div class="col-md-2 col-md-offset-2 col-sm-2 col-sm-offset-2 col-xs-3 col-xs-offset-1"><img id="suggest_button" src="images/ic-butt/Suggest_Button.png"></div>
+	</div>
+</div>
